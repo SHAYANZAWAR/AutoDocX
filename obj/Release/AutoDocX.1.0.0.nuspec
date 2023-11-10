@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AutoDocX</id>
+    <version>1.0.0</version>
+    <authors>Shayan Zawar</authors>
+    <icon>icon.png</icon>
+    <readme>readme.md</readme>
+    <description>An automative tool that automates the manual work of compiling and executing a c++ program , taking its screenshot
+        and adding it into a (.docx) file - usually used for c++ programming assignments submissions.</description>
+    <tags>AutoDocx docx automation commandLine automativeTool</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" commit="3d659bb55303ede49b718937eccda27e5b99df14" />
+  </metadata>
+  <files>
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\obj\DotnetToolSettings.xml" target="tools\net7.0\any\DotnetToolSettings.xml" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\lib\nircmd.exe" target="tools\net7.0\any\lib\nircmd.exe" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\AutoDocX.dll" target="tools\net7.0\any\AutoDocX.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\AutoDocX.deps.json" target="tools\net7.0\any\AutoDocX.deps.json" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\AutoDocX.runtimeconfig.json" target="tools\net7.0\any\AutoDocX.runtimeconfig.json" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\AutoDocX.pdb" target="tools\net7.0\any\AutoDocX.pdb" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\DocumentFormat.OpenXml.dll" target="tools\net7.0\any\DocumentFormat.OpenXml.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\DocumentFormat.OpenXml.Framework.dll" target="tools\net7.0\any\DocumentFormat.OpenXml.Framework.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\System.CommandLine.dll" target="tools\net7.0\any\System.CommandLine.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\System.IO.Packaging.dll" target="tools\net7.0\any\System.IO.Packaging.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\cs\System.CommandLine.resources.dll" target="tools\net7.0\any\cs\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\de\System.CommandLine.resources.dll" target="tools\net7.0\any\de\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\es\System.CommandLine.resources.dll" target="tools\net7.0\any\es\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\fr\System.CommandLine.resources.dll" target="tools\net7.0\any\fr\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\it\System.CommandLine.resources.dll" target="tools\net7.0\any\it\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\ja\System.CommandLine.resources.dll" target="tools\net7.0\any\ja\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\ko\System.CommandLine.resources.dll" target="tools\net7.0\any\ko\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\pl\System.CommandLine.resources.dll" target="tools\net7.0\any\pl\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\pt-BR\System.CommandLine.resources.dll" target="tools\net7.0\any\pt-BR\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\ru\System.CommandLine.resources.dll" target="tools\net7.0\any\ru\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\tr\System.CommandLine.resources.dll" target="tools\net7.0\any\tr\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\zh-Hans\System.CommandLine.resources.dll" target="tools\net7.0\any\zh-Hans\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\bin\Release\net7.0\publish\zh-Hant\System.CommandLine.resources.dll" target="tools\net7.0\any\zh-Hant\System.CommandLine.resources.dll" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\images\icon.png" target="\icon.png" />
+    <file src="C:\Users\Shayan\Desktop\AutoDocX\readme.md" target="\readme.md" />
+  </files>
+</package>

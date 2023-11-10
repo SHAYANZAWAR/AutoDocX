@@ -31,3 +31,5 @@ C:\Users\Shayan\Desktop\AutoDocX\obj\Debug\net7.0\refint\AutoDocX.dll
 C:\Users\Shayan\Desktop\AutoDocX\obj\Debug\net7.0\AutoDocX.pdb
 C:\Users\Shayan\Desktop\AutoDocX\obj\Debug\net7.0\AutoDocX.genruntimeconfig.cache
 C:\Users\Shayan\Desktop\AutoDocX\obj\Debug\net7.0\ref\AutoDocX.dll
+C:\Users\Shayan\Desktop\AutoDocX\obj\Debug\net7.0\AutoDocX.sourcelink.json
+C:\Users\Shayan\Desktop\AutoDocX\bin\Debug\net7.0\lib\nircmd.exe

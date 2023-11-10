@@ -1,7 +1,7 @@
-using System;
+
 using System.Diagnostics;
 using DetOS;
-using System.Runtime.InteropServices;
+
 
 namespace Processes
 {
@@ -14,7 +14,7 @@ namespace Processes
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = ((_DetOS.IsMacOS()) ? "/usr/bin/open" : "cmd"),
+                    FileName = ((_DetOS.IsMacOS()) ? "/usr/bin/open" : "cmd.exe"),
                     RedirectStandardInput = false,
                     RedirectStandardOutput = false,
                     RedirectStandardError = false,
@@ -25,15 +25,12 @@ namespace Processes
                 Process process = new Process();
                 process.StartInfo = startInfo;
 
-                // process.StartInfo.Arguments = ((_DetOS.IsWindows()) ? $"/c .\\Win32Dependencies\\process.bat {fileName} test.png" 
-                // : $"-a Terminal.app {fileName}"); 
-                string nircmdPath = System.IO.Directory.GetCurrentDirectory() + "/lib/nircmd.exe";
-                process.StartInfo.Arguments = ((_DetOS.IsWindows()) ? $"/k {fileName} && timeout /t 1 /nobreak >nul && {nircmdPath} savescreenshotwin {fileName + ".png"}"
+                // string? nircmdPath = null;
+                process.StartInfo.Arguments = ((_DetOS.IsWindows()) ? $"/c start /wait /b {""} {fileName} && timeout /t 1 /nobreak > nul && call nircmd.exe savescreenshotwin {fileName + ".png"} && pause"
                 : $"-a Terminal.app {fileName}");
 
 
                 process.Start();
-
                 // Wait a moment to give the terminal window time to start
                 System.Threading.Thread.Sleep(1000);
 
@@ -42,7 +39,6 @@ namespace Processes
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -64,16 +60,14 @@ namespace Processes
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = true;
                     process.Start();
-
                     errorMsg = process.StandardError.ReadToEnd();
                     process.WaitForExit();
                     return process.ExitCode == 0;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("An error occured while compiling the cpp file: " + ex.Message);
-                return false;
+                throw;
             }
 
         }
@@ -85,7 +79,6 @@ namespace Processes
             try
             {
                 process.Kill();
-                
                 process.CloseMainWindow();
                 process.Dispose();
 
@@ -132,6 +125,11 @@ namespace Processes
 
             // reversing the array, fileNames from least order to most
             Array.Reverse(filteredFileNames);
+            filteredFileNames = filteredFileNames
+                        .SelectMany(fileName => fileName.EndsWith(".h", StringComparison.OrdinalIgnoreCase)
+                            ? new string[] { fileName, Path.ChangeExtension(fileName, ".cpp") }
+                            : new string[] { fileName })
+                        .ToArray();
 
             return filteredFileNames;
 
@@ -141,8 +139,3 @@ namespace Processes
 
     }
 }
-
-
-
-
-// PING -n 1 127.0.0.1>nul && nircmd.exe savescreenshotwin {fileName} 

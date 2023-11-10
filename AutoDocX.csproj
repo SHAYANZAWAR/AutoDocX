@@ -1,15 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>AutoDocX</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Shayan Zawar</Authors>
+    <Company>AutomateWare</Company>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>autodocx</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <PackageIcon>icon.png</PackageIcon>
+    <Description>
+        An automative tool that automates the manual work of compiling and executing a c++ program , taking its screenshot
+        and adding it into a (.docx) file - usually used for c++ programming assignments submissions.
+    </Description>
+    <PackageTags>AutoDocx;docx;automation;commandLine;automativeTool</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0-beta0003" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <None Update="lib\nircmd.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="images\icon.png" Pack="true" PackagePath="\"/>
+    <None Include="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -10,8 +10,11 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("AutoDocX")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("AutomateWare")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("\r\n        An automative tool that automates the manual work of compiling and exec" +
+    "uting a c++ program , taking its screenshot\r\n        and adding it into a (.docx" +
+    ") file - usually used for c++ programming assignments submissions.\r\n    ")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoDocX")]

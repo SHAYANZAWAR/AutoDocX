@@ -1,12 +1,7 @@
 using System.CommandLine;
-using ScreenCapture;
-using AutoDocx;
-using System.Threading.Tasks;
-using System.CommandLine.Invocation;
-using System.Linq;
-using docx;
 using System.CommandLine.Parsing;
-using DocumentFormat.OpenXml.Wordprocessing;
+using AutoDocx;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace AutoDocXCLI
 {
@@ -30,15 +25,15 @@ namespace AutoDocXCLI
 
 
             // defining the subcommands (add, remove, update)
-            var addCommand = new Command("add", "subcommand to add filePath to autodocx");
-            var updateCommand = new Command("update", "subcommand to update an output in the wordFile");
-            var removeCommand = new Command("remove", "subcommand to remove an output in the wordFile");
+            var addCommand = new Command("add", "subcommand to add filePath to autodocx.");
+            var updateCommand = new Command("update", "subcommand to update an output in the wordFile.");
+            var removeCommand = new Command("remove", "subcommand to remove an output in the wordFile.");
 
 
             // defining arguments to subcommand (add)
             var filePathArg = new Argument<string>(
                 name: "FilePath",
-                description: "Argument to add filePath to autodocx"
+                description: "Argument to add filePath to autodocx."
             );
             filePathArg.Arity = ArgumentArity.ExactlyOne;
 
@@ -51,20 +46,20 @@ namespace AutoDocXCLI
 
             var multipleFileStructureFlag = new Option<string>(
                 name: "--mfile",
-                description: "flag to specify that input file depends on multiple ",
+                description: "flag to specify that input file depends on multiple.",
                 getDefaultValue: () => ""
             );
             multipleFileStructureFlag.Arity = ArgumentArity.Zero;
 
-            var avoidFilesOption = new Option<string[]> (
+            var avoidFilesOption = new Option<string>(
                 name: "--not",
-                description: "Option to specify the files to avoid adding in case of multiple file dependencies",
-                getDefaultValue: () => Array.Empty<string>()
-            );
-            avoidFilesOption.Arity = ArgumentArity.ZeroOrMore;
+                description: "Option to specify the files to avoid adding in case of multiple file dependencies.",
+                getDefaultValue: () => ""
+            )
+            {
+                Arity = ArgumentArity.ZeroOrOne,
+            };
 
-            // adding --not option to the root command
-            rootCommand.AddGlobalOption(avoidFilesOption);   
 
 
             // defining arguments to subcommand (update)
@@ -89,11 +84,11 @@ namespace AutoDocXCLI
             // Binding options to the global command (root: autodocx)
             rootCommand.AddGlobalOption(wordFilePathArg);
             rootCommand.AddGlobalOption(multipleFileStructureFlag);
+            rootCommand.AddGlobalOption(avoidFilesOption);
 
             // Binding arguments to subcommand
             addCommand.AddArgument(filePathArg);
             addCommand.AddArgument(outputHeading);
-            addCommand.AddOption(multipleFileStructureFlag);
             updateCommand.AddArgument(oldFileArg);
             updateCommand.AddArgument(newFileArg);
             removeCommand.AddArgument(filePathArg);
@@ -134,16 +129,8 @@ namespace AutoDocXCLI
             });
 
 
-            // rootCommand.SetHandler((avoidFileValues) =>
-            // {
-            //     // _AutoDocX.logError("Error: no subcommand provided");
-            //     // Console.WriteLine("Type --help followed by \'autodocx\' to get help.");
-            //     Console.WriteLine(avoidFileValues);
-            // }, avoidFilesOption);
-
-
             // Setting handlers to subcommands
-            addCommand.SetHandler((wordFilePathValue, filePathValue, outputHeadingValue, avoidFilesValue) =>
+            addCommand.SetHandler((wordFilePathValue, filePathValue, outputHeadingValue, avoidFiles) =>
             {
 
                 if (string.IsNullOrEmpty(filePathValue))
@@ -151,26 +138,25 @@ namespace AutoDocXCLI
                     _AutoDocX.logError("Error: no path to file provided");
                     return;
                 }
-                foreach (string fileNames in avoidFilesValue) {
-                    Console.WriteLine(fileNames);
-                }
-                _AutoDocX.addToDoc(wordFilePathValue, filePathValue, outputHeadingValue, isMultipleFile);
+
+                _AutoDocX.addToDoc(wordFilePathValue, filePathValue, outputHeadingValue, isMultipleFile, (String.IsNullOrEmpty(avoidFiles)) ? null : avoidFiles);
 
             }, wordFilePathArg, filePathArg, outputHeading, avoidFilesOption);
 
 
 
-            updateCommand.SetHandler((wordFilePathValue, oldFilePath, newFilePath) =>
+            updateCommand.SetHandler((wordFilePathValue, oldFilePath, newFilePath, avoidFiles) =>
             {
 
-                _AutoDocX.updateInDocx(isMultipleFile, wordFilePathValue, oldFilePath, newFilePath);
+                _AutoDocX.updateInDocx(isMultipleFile, wordFilePathValue, oldFilePath, newFilePath, avoidFiles);
 
 
-            }, wordFilePathArg, oldFileArg, newFileArg);
+            }, wordFilePathArg, oldFileArg, newFileArg, avoidFilesOption);
 
 
 
-            removeCommand.SetHandler((wordFilePathValue, filePath) => {
+            removeCommand.SetHandler((wordFilePathValue, filePath) =>
+            {
 
                 _AutoDocX.RemoveInDocX(wordFilePathValue, filePath);
 
