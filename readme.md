@@ -270,6 +270,3 @@ I will review the request and merge it if it seems right.
 
 For questions, discussions, or help, you can discuss on [Github Discussions](https://github.com/SHAYANZAWAR/AutoDocX/discussions/).
 
-### Acknowledgment
-
-I would like to express my gratitude to all contributors who help improve the **AutoDocX**. Your contributions are valuable and make the project better for everyone.
