@@ -17,11 +17,9 @@ namespace ScreenCapture
             Console.WriteLine("Unsupported operating system.");
             return false;
 
-
         }
         public static bool CaptureMacOSWindow(int processID, string ssTitle)
         {
-
             string errorMsg = "";
             bool doesCaptured = _Processes.runProcess("/bin/bash", $"-c \"screencapture -oxl{processID} {ssTitle + ".png"}\"", ref errorMsg);
             return doesCaptured;
@@ -29,5 +27,9 @@ namespace ScreenCapture
 
     }
 }
+
+
+
+// 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
 
 

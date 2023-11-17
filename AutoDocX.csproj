@@ -18,7 +18,9 @@
         and adding it into a (.docx) file - usually used for c++ programming assignments submissions.
     </Description>
     <PackageTags>AutoDocx;docx;automation;commandLine;automativeTool</PackageTags>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/SHAYANZAWAR/AutoDocX</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,10 +30,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="images\icon.png" Pack="true" PackagePath="\"/>
-    <None Include="readme.md">
+    <None Include="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+
+    <None Include="LICENSE.txt" Pack="true" PackagePath=""/>
+
   </ItemGroup>
 
 </Project>

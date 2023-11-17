@@ -65,12 +65,7 @@ namespace docx
 
                         foreach (string fileName in fileNames)
                         {
-                            Console.WriteLine(fileName);
-                        }
 
-                        foreach (string fileName in fileNames)
-                        {
-                            // string fileNameWithoutExtension = GetFileNameWithoutExtension(fileName);
 
                             string currentPath = ((directoryPath == null || directoryPath == "")) ? (fileName)
                             : (Path.Combine(directoryPath, fileName));
@@ -196,8 +191,6 @@ namespace docx
                                 }
                                 else
                                 {
-                                    // string fileNameWithoutExtension = GetFileNameWithoutExtension(oldDeps[i]);
-
                                     RemovePara(mainPart, oldDeps[i] + "_heading");
                                     RemovePara(mainPart, oldDeps[i] + "_code");
                                 }
@@ -322,8 +315,6 @@ namespace docx
 
 
         }
-
-
 
 
         static void AddImageToBody(MainDocumentPart mainPart, Paragraph paragraph, string imagePath, string customIdValue)

@@ -3,13 +3,11 @@ using ScreenCapture;
 using docx;
 using DetOS;
 using Processes;
-using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace AutoDocx
 {
     class _AutoDocX
     {
-
         public static bool addToDoc(string wordFilePath, string inputFilePath, string outputHeading, bool isMultipleFile, string? avoidFiles)
         {
 
@@ -132,12 +130,6 @@ namespace AutoDocx
                 }
                 return false;
             }
-
-
-
-
-
-
 
             return true;
         }

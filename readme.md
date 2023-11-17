@@ -1,9 +1,9 @@
-![AutoDocX](images/default.png)
+![AutoDocX](images/main.png)
 
 # AutoDocX
 
-    An automative tool that automates the manual work of compiling and executing a c/c++ program , taking its screenshot
-    and adding it into a (.docx) file - usually used for c/c++ programming assignments submissions.
+An automative tool that automates the manual work of compiling and executing a c/c++ program , taking its screenshot
+and adding it into a (.docx) file - usually used for c/c++ programming assignments submissions.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@
 
 ## **Introduction**
 
-    The AutoDocX is a command-line tool designed to simplify the process of compiling and executing C/C++ programs and generating a .docx file with code and program output for assignment submission. It is particularly useful for students to minimize the work overhead they had to do without autodocx.
+The AutoDocX is a command-line tool designed to simplify the process of compiling and executing C/C++ programs and generating a .docx file with code and program output for assignment submission. It is particularly useful for students to minimize the work overhead they had to do without autodocx.
 
 ## **Installation**
 
@@ -46,7 +46,11 @@
    After the `pre-requisites` sorted out. Run the following command on your `cmd/bash`.
 
    ```bash
+    dotnet tool install --global AutoDocX --version [Version Number]
+   ```
 
+   ```bash
+    dotnet tool install --global AutoDocX --version 1.0.0
    ```
 
 ## **Usage**
@@ -253,7 +257,7 @@ If you encounter any issues or unexpected behavior while using `AutoDocX`, pleas
 
 ### Feature Requests
 
-If you have ideas for new features or improvements, feel free to submit feature requests on [GitHub Issues](https://github.com/SHAYANZAWAR/AutoDocX/issues) page.
+If you have ideas for new features or improvements, feel free to submit to discusss about it on [Github Discussions](https://github.com/SHAYANZAWAR/AutoDocX/discussions/). After good response from others and the owner, add feature request on [GitHub Issues](https://github.com/SHAYANZAWAR/AutoDocX/issues) page.
 
 ### Code Contributions
 
@@ -273,3 +277,7 @@ For questions, discussions, or help, you can discuss on [Github Discussions](htt
 ### Acknowledgment
 
 I would like to express my gratitude to all contributors who help improve the **AutoDocX**. Your contributions are valuable and make the project better for everyone.
+
+## **Authors**
+
+This tool is created by [Shayan_Zawar](https://gravatar.com/shayanzawar3 "profile").

@@ -79,6 +79,7 @@ namespace Processes
             try
             {
                 process.Kill();
+                process.Close();
                 process.CloseMainWindow();
                 process.Dispose();
 
