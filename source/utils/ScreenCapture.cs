@@ -28,8 +28,3 @@ namespace ScreenCapture
     }
 }
 
-
-
-// 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
-
-

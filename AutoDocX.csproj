@@ -35,7 +35,7 @@
       <PackagePath>\</PackagePath>
     </None>
 
-    <None Include="LICENSE.txt" Pack="true" PackagePath=""/>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="\"/>
 
   </ItemGroup>
 

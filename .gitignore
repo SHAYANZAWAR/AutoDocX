@@ -1,1 +1,9 @@
-nupkg/
+
+# vscode configuration file
+.vscode/
+
+# build files
+bin/
+
+
+obj/

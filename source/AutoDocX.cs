@@ -1,3 +1,20 @@
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+/*
+
+Main file of "AutoDocX" , CLI (AutoDocXCLI.docx) directly calls its functions
+Main Functions:
+1. addToDoc
+2. updateInDocx
+3. RemoveInDocX
+
+These functions are wrappers around the functions in "utils/docx.cs"
+*/
+
+/////////////////////////////////////////////////////////////////////////////
+
 using System.Diagnostics;
 using ScreenCapture;
 using docx;
@@ -12,12 +29,18 @@ namespace AutoDocx
         {
 
 
+            // checking wether "gcc compiler" exists
+            // and also wether inputFilePath exists
             if (initialCheckup(inputFilePath) == false)
             {
                 return false;
             }
 
 
+
+            // if tool is executed on a windows system, then 
+            // some extra setup is needed, (lib/nircmd.exe -> C:\)
+            // (C:\nircmd/nircmd.exe -> User's Environmental Variables)
             if (_DetOS.IsWindows())
             {
                 string exeFileName = @"C:/nircmd";
@@ -46,11 +69,14 @@ namespace AutoDocx
             }
 
 
+
+            // extract filename from the given Path (The case when path is provided instead of filename directly)
             string fileName = Path.GetFileName(inputFilePath);
             string compiledFileName = GetFileNameWithoutExtension(fileName);
 
 
 
+            // compiling the program and checking the status
             if (handleCompilation(inputFilePath, isMultipleFile) == false)
             {
                 return false;
@@ -69,7 +95,7 @@ namespace AutoDocx
                 return false;
             }
 
-            // if for some reason process is not created (*v*)
+            // if for some reason process is not created.
             if (process == null)
             {
                 logError("c++ file not executed (reason: unknown)");
@@ -121,7 +147,7 @@ namespace AutoDocx
 
 
             }
-            else
+            else // if the user refuses to add , then delete the screenshot captured
             {
 
                 if (File.Exists((compiledFileName + ".png")))
@@ -136,7 +162,7 @@ namespace AutoDocx
 
 
 
-        // no matter wether executable exists, as we need to be up to date
+
         public static bool updateInDocx(bool isMultipleFile, string wordFilePath, string oldFileName, string newFilePath, string avoidFiles)
         {
 
@@ -181,7 +207,7 @@ namespace AutoDocx
 
 
 
-            // adding 1 second delay before checking if image exists, granting it time 
+            // adding 1 second delay before checking if image exists, granting it time to be captured
             System.Threading.Thread.Sleep(1000);
 
 
