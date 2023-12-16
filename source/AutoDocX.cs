@@ -85,8 +85,8 @@ namespace AutoDocx
                 }
                 else
                 {
-                    logError("Output Window has been closed, Can't take its screenshot");
-
+                    logError("Output Terminal has been closed, Can't take its screenshot");
+                    logFixes("Fix: Don't close the output Terminal, AutoDocX will close it automatically");
                     // checking if the screenshot exists previously
                     if (doesFileExists(compiledFileName + ".png"))
                     {
