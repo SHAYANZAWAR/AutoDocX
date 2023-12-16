@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>AutoDocX</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.3</Version>
     <Authors>Shayan Zawar</Authors>
     <Company>AutomateWare</Company>
     <OutputType>Exe</OutputType>
@@ -26,16 +26,15 @@
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0-beta0003" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-    <None Update="lib\nircmd.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="images\icon.png" Pack="true" PackagePath="\"/>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+    <None Include="images\icon.png" Pack="true" PackagePath="\" />
     <None Include="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
 
-    <None Include="LICENSE.txt" Pack="true" PackagePath="\"/>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="\" />
+
 
   </ItemGroup>
 

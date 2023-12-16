@@ -26,7 +26,7 @@ namespace Processes
                 process.StartInfo = startInfo;
 
                 // string? nircmdPath = null;
-                process.StartInfo.Arguments = ((_DetOS.IsWindows()) ? $"/c start /wait /b {""} {fileName} && timeout /t 1 /nobreak > nul && call nircmd.exe savescreenshotwin {fileName + ".png"} && pause"
+                process.StartInfo.Arguments = ((_DetOS.IsWindows()) ? $"/c start /wait /b {""} {fileName} && pause"
                 : $"-a Terminal.app {fileName}");
 
 
@@ -79,7 +79,6 @@ namespace Processes
             try
             {
                 process.Kill();
-                process.Close();
                 process.CloseMainWindow();
                 process.Dispose();
 
@@ -127,10 +126,11 @@ namespace Processes
             // reversing the array, fileNames from least order to most
             Array.Reverse(filteredFileNames);
             filteredFileNames = filteredFileNames
-                        .SelectMany(fileName => fileName.EndsWith(".h", StringComparison.OrdinalIgnoreCase)
-                            ? new string[] { fileName, Path.ChangeExtension(fileName, ".cpp") }
-                            : new string[] { fileName })
-                        .ToArray();
+                .SelectMany(fileName =>
+                    (fileName.EndsWith(".h", StringComparison.OrdinalIgnoreCase) || fileName.EndsWith(".hpp", StringComparison.OrdinalIgnoreCase))
+                        ? new string[] { fileName, Path.ChangeExtension(fileName, ".cpp") }
+                        : new string[] { fileName })
+                .ToArray();
 
             return filteredFileNames;
 
@@ -140,3 +140,7 @@ namespace Processes
 
     }
 }
+
+
+
+// timeout / t 1 / nobreak > nul && call nircmd.exe savescreenshotwin { fileName + ".png"} && pause

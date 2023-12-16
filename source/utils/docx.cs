@@ -101,7 +101,6 @@ namespace docx
 
         public static void updateDocX(bool isMultipleFile, string wordFileName, string oldFileName, string newFilePath, bool image, string[] avoidFiles)
         {
-            // string oldFileNameWithoutExtension = GetFileNameWithoutExtension(oldFileName);
             string newFileName = Path.GetFileName(newFilePath);
 
             string? currentDirPath = Directory.GetCurrentDirectory();

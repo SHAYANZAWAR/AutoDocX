@@ -9,11 +9,12 @@ and adding it into a (.docx) file - usually used for c/c++ programming assignmen
 
 1. [Introduction](#introduction)
 2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Workflow](#workflow)
-5. [Configuration](#configuration)
-6. [Contributing](#contributing)
-7. [Authors](#authors)
+3. [Build Project](#Build)
+4. [Usage](#usage)
+5. [Workflow](#workflow)
+6. [Configuration](#configuration)
+7. [Contributing](#contributing)
+8. [Authors](#authors)
 
 ## **Introduction**
 
@@ -52,6 +53,24 @@ The AutoDocX is a command-line tool designed to simplify the process of compilin
    ```bash
     dotnet tool install --global AutoDocX --version 1.0.0
    ```
+
+## **Build**
+
+You can build the project by following the mentioned steps:
+
+- Download the project as zip and then extract it, or pull the project using the command
+
+```bash
+git pull origin https://github.com/SHAYANZAWAR/AutoDocX.git main
+```
+
+and then run the command:
+
+```bash
+dotnet build
+```
+
+its gonna build the project and now you can run the project with `dotnet run` command
 
 ## **Usage**
 

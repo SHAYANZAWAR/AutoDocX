@@ -1,5 +1,4 @@
 
-
 //////////////////////////////////////////////////////////////////////////////
 
 /*
@@ -37,39 +36,6 @@ namespace AutoDocx
             }
 
 
-
-            // if tool is executed on a windows system, then 
-            // some extra setup is needed, (lib/nircmd.exe -> C:\)
-            // (C:\nircmd/nircmd.exe -> User's Environmental Variables)
-            if (_DetOS.IsWindows())
-            {
-                string exeFileName = @"C:/nircmd";
-                string exePath = Path.Combine(Environment.CurrentDirectory, exeFileName);
-
-                try
-                {
-                    addExeToDirectory(@"C:\nircmd", "nircmd.exe");
-                    if (!IsExeInPath(exePath))
-                    {
-                        logError($"{exeFileName} is not in the PATH.");
-                        logFixes("Adding it...");
-                        AddExeToPath(exePath);
-                        Console.WriteLine("Path updated. Please restart your shell or application for changes to take effect.");
-                        return false;
-                    }
-                }
-                catch (System.UnauthorizedAccessException)
-                {
-                    logError("Access to 'C:/nircmd' is denied.");
-                    logFixes("Please run your cmd/(powershell terminal) as Administrator!");
-                    return false;
-                }
-
-
-            }
-
-
-
             // extract filename from the given Path (The case when path is provided instead of filename directly)
             string fileName = Path.GetFileName(inputFilePath);
             string compiledFileName = GetFileNameWithoutExtension(fileName);
@@ -103,13 +69,31 @@ namespace AutoDocx
             }
 
 
-            // taking screenshot of the code execution process and
-            // setting same name as compiled file
-            if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
 
             // asking the user (are they sure to add?)
             if (getChoice("Are you sure to add?"))
             {
+                // Checking if the process is still up or user has closed it
+                if (!process.HasExited)
+                {
+                    // taking screenshot of the code execution process and
+                    // setting same name as compiled file
+                    if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
+
+                    if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
+                    // return false;
+                }
+                else
+                {
+                    logError("Output Window has been closed, Can't take its screenshot");
+
+                    // checking if the screenshot exists previously
+                    if (doesFileExists(compiledFileName + ".png"))
+                    {
+                        logError("Using previously captured screenshot");
+                    }
+
+                }
 
                 bool isWordFileFound = doesFileExists(wordFilePath);
                 if (outputHeading == "default")
@@ -146,15 +130,6 @@ namespace AutoDocx
                 _Processes.KillProcess(process);
 
 
-            }
-            else // if the user refuses to add , then delete the screenshot captured
-            {
-
-                if (File.Exists((compiledFileName + ".png")))
-                {
-                    File.Delete((compiledFileName + ".png"));
-                }
-                return false;
             }
 
             return true;
@@ -205,6 +180,7 @@ namespace AutoDocx
 
             if (_DetOS.IsMacOS()) _ScreenCapture.CaptureMacOSWindow(process.Id, compiledFileName + ".png");
 
+            if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
 
 
             // adding 1 second delay before checking if image exists, granting it time to be captured
