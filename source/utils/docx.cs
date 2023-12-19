@@ -125,6 +125,8 @@ namespace docx
                     }
                     Document document = mainPart.Document;
 
+                    if (document == null || document.Body == null) return;
+
                     string[] oldDeps = _Processes.getFileDependencies(oldFileName);
                     //~ if the old file has multiple files that 
                     //~ are in the wordFileName
@@ -210,6 +212,20 @@ namespace docx
                     // images are wrapped in paragraph element
                     int imageIndex = SearchParagraph(document, oldFileName + "_img");
                     if (imageIndex != -1 && (imageFound = true)) { }
+                    else
+                    {
+
+                        Paragraph paraWithImage = new Paragraph();
+
+
+                        if (image)
+                            AddImageToBody(mainPart, paraWithImage, newFileNameWithoutExtension + ".png", newFileName + "_img");
+
+                        // Append the paragraph to the document
+                        mainPart.Document.Body?.Append(paraWithImage);
+
+
+                    }
                     if (imageFound)
                     {
 

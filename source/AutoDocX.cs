@@ -91,6 +91,7 @@ namespace AutoDocx
                     if (doesFileExists(compiledFileName + ".png"))
                     {
                         logError("Using previously captured screenshot");
+
                     }
 
                 }
@@ -156,7 +157,10 @@ namespace AutoDocx
             string compiledFileName = GetFileNameWithoutExtension(fileName);
 
 
-            handleCompilation(newFilePath, isMultipleFile);
+            if (handleCompilation(newFilePath, isMultipleFile) == false)
+            {
+                return false;
+            }
 
             Process? process = null; // process object to contain the execution process
 
@@ -178,16 +182,41 @@ namespace AutoDocx
                 return false;
             }
 
-            if (_DetOS.IsMacOS()) _ScreenCapture.CaptureMacOSWindow(process.Id, compiledFileName + ".png");
-
-            if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
-
 
             // adding 1 second delay before checking if image exists, granting it time to be captured
             System.Threading.Thread.Sleep(1000);
 
 
-            if (!getChoice("Are you sure to update?")) { return false; }
+            if (getChoice("Are you sure to update?"))
+            {
+                // Checking if the process is still up or user has closed it
+                if (!process.HasExited)
+                {
+                    // taking screenshot of the code execution process and
+                    // setting same name as compiled file
+                    if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
+
+                    if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
+                    // return false;
+                }
+                else
+                {
+                    logError("Output Terminal has been closed, Can't take its screenshot");
+                    logFixes("Fix: Don't close the output Terminal, AutoDocX will close it automatically");
+                    // checking if the screenshot exists previously
+                    if (doesFileExists(compiledFileName + ".png"))
+                    {
+                        logError("Using previously captured screenshot");
+
+                    }
+
+                }
+
+            }
+            else
+            {
+                return false;
+            }
 
             string[] avoidFileList;
             if (avoidFiles != null)
@@ -199,7 +228,8 @@ namespace AutoDocx
             if (!doesFileExists(compiledFileName + ".png"))
             {
 
-                logError("Screenshot of new file output is not captured");
+                logError($"Screenshot of new file not captured! Not added in {wordFilePath}");
+
                 _docx.updateDocX(isMultipleFile, wordFilePath, oldFileName, newFilePath, false, avoidFileList);
 
             }

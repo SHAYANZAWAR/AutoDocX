@@ -8,8 +8,6 @@ bin/
 
 obj/
 
-
-AutoDocX.sln
-
-
 nuget.config
+
+clean.bat

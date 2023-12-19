@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>AutoDocX</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.1</Version>
     <Authors>Shayan Zawar</Authors>
     <Company>AutomateWare</Company>
     <OutputType>Exe</OutputType>

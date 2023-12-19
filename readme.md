@@ -12,9 +12,8 @@ and adding it into a (.docx) file - usually used for c/c++ programming assignmen
 3. [Build Project](#Build)
 4. [Usage](#usage)
 5. [Workflow](#workflow)
-6. [Configuration](#configuration)
-7. [Contributing](#contributing)
-8. [Authors](#authors)
+6. [Contributing](#contributing)
+7. [Authors](#authors)
 
 ## **Introduction**
 
@@ -51,8 +50,10 @@ The AutoDocX is a command-line tool designed to simplify the process of compilin
    ```
 
    ```bash
-    dotnet tool install --global AutoDocX --version 1.0.0
+    dotnet tool install --global AutoDocX --version 1.0.1
    ```
+
+   or visit [https://www.nuget.org/packages/AutoDocX](https://www.nuget.org/packages/AutoDocX)
 
 ## **Build**
 
@@ -246,25 +247,6 @@ you only need to raise `--mfile` flag and `AutoDocX` would handle everything. It
 ```bash
 autodocx add Task1.cpp --wordFile work.docx --mfile --not "Arithmetic.hpp"
 ```
-
-## **Configuration**
-
-### **Windows Screenshot Utility**
-
-To capture screenshot on Windows OS , a third party tool is used [nircmd.exe](https://www.nirsoft.net/utils/nircmd.html "link to nircmd.exe").
-<br/>
-`AutoDocX` will automatically move `nircmd.exe` to `C:\nircmd` and it will also add its path to `User's environmental variables`.
-<br/>
-So if you want to change the location of `nircmd.exe` then also remember to change its path in user environmental variables.
-
-### **MacOS Screenshot Utility**
-
-MacOS by default provided `screencapture` command, which worked very well and had many options.
-<br/>
-Windows didn't had any thing like that by default. So,
-<br/>
-
-**Why you did this to me Windows?**
 
 ## **Contributing**
 

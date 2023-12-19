@@ -121,10 +121,9 @@ namespace AutoDocXCLI
                     _AutoDocX.logError("Error: New File path argument is required");
 
                 }
-                if (result.Children.Any(child => child.Symbol == newFileArg))
+                if (result.Children.Any(child => child.Symbol == multipleFileStructureFlag))
                 {
                     isMultipleFile = true;
-
                 }
             });
 
