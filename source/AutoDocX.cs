@@ -78,10 +78,8 @@ namespace AutoDocx
                 {
                     // taking screenshot of the code execution process and
                     // setting same name as compiled file
-                    if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
-
-                    if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
-                    // return false;
+                    __ScreenCapture.captureWindowG(process, compiledFileName);
+                    
                 }
                 else
                 {
@@ -194,10 +192,8 @@ namespace AutoDocx
                 {
                     // taking screenshot of the code execution process and
                     // setting same name as compiled file
-                    if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
-
-                    if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
-                    // return false;
+                    _ScreenCapture.captureWindowG(process, compiledFileName);
+                    
                 }
                 else
                 {
