@@ -33,7 +33,7 @@ namespace ScreenCapture
             public int Bottom;
         }
 
-        public static bool captureWindow(Process process, string ssTitle)
+        public static bool captureWindowG(Process process, string ssTitle)
         {
             if (_DetOS.IsMacOS())
             {
