@@ -63,7 +63,7 @@ namespace ScreenCapture
 
             if (targetWindowHandle != IntPtr.Zero)
             {
-                CaptureWindow(targetWindowHandle, ssTitle);
+                CaptureWindow(targetWindowHandle, ssTitle + ".png");
                 return true;
             }
             else
