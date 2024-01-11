@@ -69,7 +69,7 @@ namespace ScreenCapture
 
         public static bool CaptureWindowsWindow(int processID, string ssTitle)
         {
-            Console.WriteLine("getting the process with id: " + processID);
+
             IntPtr targetWindowHandle = GetWindowHandleByProcessId(processID);
 
             if (targetWindowHandle != IntPtr.Zero)
@@ -103,64 +103,13 @@ namespace ScreenCapture
             {
                 if (process.Id == processId)
                 {
-                    Console.WriteLine("found a process with id: " + process.Id);
+
                     hwnd = process.MainWindowHandle;
                     break;
                 }
             }
             return hwnd;
         }
-
-        // private static void CaptureWindow(IntPtr hwnd, string filePath)
-        // {
-        //     RECT windowRect;
-        //     GetWindowRect(hwnd, out windowRect);
-
-        //     int width = windowRect.Right - windowRect.Left;
-        //     int height = windowRect.Bottom - windowRect.Top;
-
-        //     using (Bitmap bitmap = new(width, height))
-        //     {
-        //         using (Graphics graphics = Graphics.FromImage(bitmap))
-        //         {
-        //             IntPtr hdcBitmap = graphics.GetHdc();
-        //             PrintWindow(hwnd, hdcBitmap, 0);
-        //             graphics.ReleaseHdc(hdcBitmap);
-        //         }
-
-        //         bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-        //     }
-        // }
-
-        // private static void CaptureWindow(IntPtr hwnd, string filePath)
-        // {
-        //     RECT windowRect;
-        //     GetWindowRect(hwnd, out windowRect);
-
-        //     int width = windowRect.Right - windowRect.Left;
-        //     int height = windowRect.Bottom - windowRect.Top;
-        //     Console.WriteLine(width);
-        //     Console.WriteLine(height);
-
-        //     using (Bitmap bitmap = new Bitmap(width, height))
-        //     {
-        //         using (Graphics graphics = Graphics.FromImage(bitmap))
-        //         {
-        //             IntPtr hdcBitmap = graphics.GetHdc();
-
-        //             // Use BitBlt for capturing window content
-        //             IntPtr hdcWindow = GetWindowDC(hwnd);
-        //             BitBlt(hdcBitmap, 0, 0, width, height, hdcWindow, 0, 0, 0x00CC0020);
-        //             ReleaseDC(hwnd, hdcWindow);
-
-        //             graphics.ReleaseHdc(hdcBitmap);
-        //         }
-
-        //         bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-        //     }
-        // }
-
-
         private static void CaptureWindow(IntPtr hwnd, string filePath)
         {
             RECT windowRect;
@@ -168,9 +117,6 @@ namespace ScreenCapture
 
             int width = windowRect.Right - windowRect.Left;
             int height = windowRect.Bottom - windowRect.Top;
-            Console.WriteLine(width);
-            Console.WriteLine(height);
-
             using (Bitmap bitmap = new Bitmap(width, height))
             {
                 using (Graphics graphics = Graphics.FromImage(bitmap))

@@ -38,6 +38,7 @@ namespace AutoDocx
 
             // extract filename from the given Path (The case when path is provided instead of filename directly)
             string fileName = Path.GetFileName(inputFilePath);
+
             string compiledFileName = GetFileNameWithoutExtension(fileName);
 
 
@@ -78,10 +79,8 @@ namespace AutoDocx
                 {
                     // taking screenshot of the code execution process and
                     // setting same name as compiled file
-                    if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
+                    _ScreenCapture.captureWindowG(process, compiledFileName);
 
-                    if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
-                    // return false;
                 }
                 else
                 {
@@ -91,7 +90,6 @@ namespace AutoDocx
                     if (doesFileExists(compiledFileName + ".png"))
                     {
                         logError("Using previously captured screenshot");
-
                     }
 
                 }
@@ -194,10 +192,8 @@ namespace AutoDocx
                 {
                     // taking screenshot of the code execution process and
                     // setting same name as compiled file
-                    if (_DetOS.IsMacOS()) _ScreenCapture.captureWindow(process, compiledFileName);
+                    _ScreenCapture.captureWindowG(process, compiledFileName);
 
-                    if (_DetOS.IsWindows()) _ScreenCapture.CaptureWindowsWindow(process.Id, compiledFileName + ".png");
-                    // return false;
                 }
                 else
                 {
@@ -325,7 +321,6 @@ namespace AutoDocx
 
             return checkFile(fileName) && doesGppCompilerExists();
         }
-
 
         private static bool handleCompilation(string inputFilePath, bool isMultipleFile)
         {

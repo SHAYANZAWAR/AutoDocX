@@ -1,7 +1,11 @@
+
+using System.CommandLine.Completions;
 using System.CommandLine;
+using System.CommandLine.Builder;
+using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using AutoDocx;
-using DocumentFormat.OpenXml.Drawing.Charts;
+
 
 namespace AutoDocXCLI
 {
@@ -20,10 +24,6 @@ namespace AutoDocXCLI
                 description: "option to add path of word file to autodocx",
                 getDefaultValue: () => "out.docx"
             );
-
-
-
-
             // defining the subcommands (add, remove, update)
             var addCommand = new Command("add", "subcommand to add filePath to autodocx.");
             var updateCommand = new Command("update", "subcommand to update an output in the wordFile.");
@@ -96,17 +96,17 @@ namespace AutoDocXCLI
             bool isMultipleFile = false;
             // adding validators for the subocmmands
             addCommand.AddValidator((result) =>
-            {
-                if (!result.Children.Any(child => child.Symbol == filePathArg))
                 {
-                    _AutoDocX.logError("Error: File path argument is required.");
-                    return;
-                }
-                if (result.Children.Any(child => child.Symbol == multipleFileStructureFlag))
-                {
-                    isMultipleFile = true;
-                }
-            });
+                    if (!result.Children.Any(child => child.Symbol == filePathArg))
+                    {
+                        _AutoDocX.logError("Error: File path argument is required.");
+                        return;
+                    }
+                    if (result.Children.Any(child => child.Symbol == multipleFileStructureFlag))
+                    {
+                        isMultipleFile = true;
+                    }
+                });
 
             updateCommand.AddValidator((result) =>
             {
@@ -168,7 +168,13 @@ namespace AutoDocXCLI
             rootCommand.Add(updateCommand);
             rootCommand.Add(removeCommand);
 
-            await rootCommand.InvokeAsync(args);
+
+            var commandLine = new CommandLineBuilder(rootCommand)
+                .UseDefaults()
+                .Build();
+
+
+            await commandLine.InvokeAsync(args);
 
         }
     }

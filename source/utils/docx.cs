@@ -52,8 +52,8 @@ namespace docx
                     // name of the file provided will be the ID (see the definition of "add paragraph")
                     if (!isMultipleFile)
                     {
-                        addParagraph(body, null, outputHeading, codeFileName + "_heading", "Calibri (Body)", "36", true, "000000");
-                        addParagraph(body, null, codeText, codeFileName + "_code", "Courier New");
+                        addParagraph(body, null, outputHeading, codeFileName + "_heading", "Cascadia Code", "36", true, "000000");
+                        addParagraph(body, null, codeText, codeFileName + "_code", "Cascadia Code");
 
                     }
                     else
@@ -71,8 +71,8 @@ namespace docx
                             : (Path.Combine(directoryPath, fileName));
 
                             codeText = File.ReadAllText(currentPath);
-                            addParagraph(body, null, fileName + ":", fileName + "_heading", "Calibri(Body)", "36", true, "000000");
-                            addParagraph(body, null, codeText, fileName + "_code", "Courier New");
+                            addParagraph(body, null, fileName + ":", fileName + "_heading", "Cascadia Code", "36", true, "000000");
+                            addParagraph(body, null, codeText, fileName + "_code", "Cascadia Code");
 
                         }
 
@@ -168,8 +168,8 @@ namespace docx
                                     Body? body = mainPart.Document.Body;
                                     if (body != null)
                                     {
-                                        addParagraph(body, insertionIndex, newDeps[i] + ":", newFileName + "_heading", "Calibri (Body)", "36", true);
-                                        addParagraph(body, insertionIndex + 1, content, newFileName + "_code", "Courier New");
+                                        addParagraph(body, insertionIndex, newDeps[i] + ":", newFileName + "_heading", "Cascadia Code", "36", true);
+                                        addParagraph(body, insertionIndex + 1, content, newFileName + "_code", "Cascadia Code");
                                     }
                                 }
 
@@ -278,7 +278,7 @@ namespace docx
                 Paragraph? headingPara = GetPara(document, headingParaIndex);
                 if (headingPara != null)
                 {
-                    updateParagraph(headingPara, newFileName + ":", newFileName + "_heading", "Calibri(Body)", "36", true, "000000");
+                    updateParagraph(headingPara, newFileName + ":", newFileName + "_heading", "Cascadia Code", "36", true, "000000");
                 }
             }
             if (contentParaFound)
@@ -287,7 +287,7 @@ namespace docx
                 string codeText = File.ReadAllText(newFilePath);
                 if (contentPara != null)
                 {
-                    updateParagraph(contentPara, codeText, newFileName + "_code", "Courier New");
+                    updateParagraph(contentPara, codeText, newFileName + "_code", "Cascadia Code");
                 }
 
             }
