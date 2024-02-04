@@ -143,4 +143,3 @@ namespace Processes
 
 
 
-// timeout / t 1 / nobreak > nul && call nircmd.exe savescreenshotwin { fileName + ".png"} && pause

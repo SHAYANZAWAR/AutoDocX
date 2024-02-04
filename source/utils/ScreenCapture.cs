@@ -83,15 +83,9 @@ namespace ScreenCapture
                     CaptureWindow(targetWindowHandle, ssTitle + ".png");
                     return true;
                 }
-                else
-                {
-                    Console.WriteLine("Window size is zero. Cannot capture.");
-                }
+                
             }
-            else
-            {
-                Console.WriteLine("Could not find window handle for process ID " + processID);
-            }
+            
 
             return false;
         }

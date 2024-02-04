@@ -48,7 +48,7 @@ namespace AutoDocXCLI
                 name: "--mfile",
                 description: "flag to specify that input file depends on multiple.",
                 getDefaultValue: () => ""
-            );
+            ); 
             multipleFileStructureFlag.Arity = ArgumentArity.Zero;
 
             var avoidFilesOption = new Option<string>(
@@ -59,9 +59,7 @@ namespace AutoDocXCLI
             {
                 Arity = ArgumentArity.ZeroOrOne,
             };
-
-
-
+            
             // defining arguments to subcommand (update)
             var oldFileArg = new Argument<string>(
                 name: "OldFileName",
