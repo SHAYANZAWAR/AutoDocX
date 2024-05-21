@@ -79,7 +79,7 @@ namespace AutoDocx
                 {
                     // taking screenshot of the code execution process and
                     // setting same name as compiled file
-                    _ScreenCapture.captureWindowG(process, compiledFileName);
+                    _ScreenCapture.CaptureWindowG(process, compiledFileName);
 
                 }
                 else
@@ -192,7 +192,7 @@ namespace AutoDocx
                 {
                     // taking screenshot of the code execution process and
                     // setting same name as compiled file
-                    _ScreenCapture.captureWindowG(process, compiledFileName);
+                    _ScreenCapture.CaptureWindowG(process, compiledFileName);
 
                 }
                 else

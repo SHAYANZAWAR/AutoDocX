@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Processes;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace ScreenCapture
 {
@@ -14,26 +15,48 @@ namespace ScreenCapture
 
     public static class _ScreenCapture
     {
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool PrintWindow(IntPtr hwnd, IntPtr hdcBlt, uint nFlags);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowDC(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        [DllImport("gdi32.dll")]
+        static extern bool BitBlt(IntPtr hdcDest, int nxDest, int nyDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, int dwRop);
 
         [DllImport("gdi32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
+        static extern IntPtr CreateCompatibleBitmap(IntPtr hdc, int width, int nHeight);
 
+        [DllImport("gdi32.dll")]
+        static extern IntPtr CreateCompatibleDC(IntPtr hdc);
+
+        [DllImport("gdi32.dll")]
+        static extern IntPtr DeleteDC(IntPtr hdc);
+
+        [DllImport("gdi32.dll")]
+        static extern IntPtr DeleteObject(IntPtr hObject);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetDesktopWindow();
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetWindowDC(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDc);
+
+        [DllImport("gdi32.dll")]
+        static extern IntPtr SelectObject(IntPtr hdc, IntPtr hObject);
+
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_RESTORE = 9;
+
+
+        const int SRCCOPY = 0x00CC0020;
+
+        const int CAPTUREBLT = 0x40000000;
 
 
         [StructLayout(LayoutKind.Sequential)]
@@ -45,7 +68,11 @@ namespace ScreenCapture
             public int Bottom;
         }
 
-        public static bool captureWindowG(Process process, string ssTitle)
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
+
+
+        public static bool CaptureWindowG(Process process, string ssTitle)
         {
             if (_DetOS.IsMacOS())
             {
@@ -69,25 +96,17 @@ namespace ScreenCapture
 
         public static bool CaptureWindowsWindow(int processID, string ssTitle)
         {
-
-            IntPtr targetWindowHandle = GetWindowHandleByProcessId(processID);
-
-            if (targetWindowHandle != IntPtr.Zero)
+            try
             {
-                RECT windowRect;
-                GetWindowRect(targetWindowHandle, out windowRect);
-
-                if (windowRect.Right - windowRect.Left > 0 && windowRect.Bottom - windowRect.Top > 0)
-                {
-
-                    CaptureWindow(targetWindowHandle, ssTitle + ".png");
-                    return true;
-                }
-                
+                CaptureWindow(processID, ssTitle);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
             }
             
-
-            return false;
         }
 
         private static IntPtr GetWindowHandleByProcessId(int processId)
@@ -99,34 +118,81 @@ namespace ScreenCapture
                 {
 
                     hwnd = process.MainWindowHandle;
+                    if (hwnd == IntPtr.Zero)
+                    {
+                        Console.WriteLine("Main window handle not found.");
+                        return IntPtr.Zero; 
+                    }
                     break;
                 }
             }
             return hwnd;
         }
-        private static void CaptureWindow(IntPtr hwnd, string filePath)
+        private static Bitmap CaptureRegion(int processID)
         {
-            RECT windowRect;
-            GetWindowRect(hwnd, out windowRect);
+            
+            Bitmap result;            
 
-            int width = windowRect.Right - windowRect.Left;
-            int height = windowRect.Bottom - windowRect.Top;
-            using (Bitmap bitmap = new Bitmap(width, height))
+
+            IntPtr hwnd = GetWindowHandleByProcessId(processID);
+
+            if (!IsWindowVisible(hwnd))
             {
-                using (Graphics graphics = Graphics.FromImage(bitmap))
-                {
-                    IntPtr hdcBitmap = graphics.GetHdc();
+                Console.WriteLine("Window is not visible.");
+                
+                ShowWindow(hwnd, SW_RESTORE);
 
-                    // Use PrintWindow for capturing window content
-                    PrintWindow(hwnd, hdcBitmap, 0);
-
-                    graphics.ReleaseHdc(hdcBitmap);
-                }
-
-                bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
             }
+            Console.WriteLine(hwnd);
+            RECT region;
+            Rectangle rect;
+            GetWindowRect(hwnd, out region);
+            rect = Rectangle.FromLTRB(region.Left, region.Top, region.Right, region.Bottom);
+
+            Console.WriteLine(rect);
+
+            IntPtr hdcSrc = GetWindowDC(hwnd);
+
+            Console.WriteLine(hdcSrc);
+
+
+            IntPtr memoryDC = CreateCompatibleDC(hdcSrc);
+
+            IntPtr bitmap = CreateCompatibleBitmap(hdcSrc, rect.Width, rect.Height);
+
+            IntPtr oldBitmap = SelectObject(memoryDC, bitmap);
+
+            bool success = BitBlt(memoryDC, 0, 0, rect.Width, rect.Height, hdcSrc, rect.Left, rect.Top, SRCCOPY | CAPTUREBLT);
+
+
+            try {
+                if (!success) {
+                    throw new Win32Exception("Failed to capture the screen.");
+                }
+                Console.WriteLine("Success");
+                result = Image.FromHbitmap(bitmap);
+            }
+            finally {
+                SelectObject(memoryDC, oldBitmap);
+                DeleteObject(bitmap);
+                DeleteDC(memoryDC);
+                ReleaseDC(hwnd, hdcSrc);
+            }
+
+
+            return result;
+
+
         }
 
+        
+
+        public static void CaptureWindow(int processID, string ssTitle)
+        {
+            Bitmap bitmap = CaptureRegion(processID);
+            bitmap.Save(ssTitle + ".png");
+    
+        }
 
 
     }

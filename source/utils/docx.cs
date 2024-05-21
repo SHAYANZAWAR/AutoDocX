@@ -18,6 +18,7 @@ namespace docx
                 MainDocumentPart mainPart = doc.AddMainDocumentPart();
                 mainPart.Document = new Document(new Body());
                 mainPart.Document.Save();
+                
             }
         }
         public static void appendToDocX(bool fileFound, bool isMultipleFile, string wordFileName, string codeFilePath
